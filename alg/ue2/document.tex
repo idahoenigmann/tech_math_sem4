@@ -2,6 +2,7 @@
 
 \usepackage{amsfonts} 
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage[margin=2.5cm]{geometry}
 
 %opening
@@ -151,5 +152,93 @@ Angenommen $g$ liegt in $C_a \implies g(a,b)=\tilde{g}(a) \lor g(a,b)=\tilde{g}(
 \end{align*}
 
 Also $C_a \neq C_b$.
+
+\section{77}
+TODO
+\newpage
+
+\section{102}
+\begin{enumerate}
+	\item $E := \{\{0\}, \{0, 1\}, \{0, 2\}, \{0, 3\}, \{0, 2, 3\}, \{0, 1, 2, 3\}\}$
+	
+	\textbf{gesucht: } Algebra $\mathcal{A}$ auf $A:=\{0, 1, 2, 3\}$, sodass $\forall M \in E: M$ ist Unteralgebra von $A$
+	
+	\begin{align*}
+		\mathcal{A} = (A, w_1, w_2, w_3) \text{ (Typ (0,2,2))}
+	\end{align*}
+	\begin{align*}
+			w_1:A^0 &\rightarrow A && w_2:A^3 &\rightarrow A && w_3:A^3 &\rightarrow A\\
+			()&\mapsto 0 && (a,b,c) &\mapsto
+			\begin{cases}
+				2 & \text{, falls } \{a,b,c\} = \{0,1,3\}\\
+				a & \text{, sonst}
+			\end{cases} &&
+			(a,b,c) &\mapsto
+			\begin{cases}
+				3 & \text{, falls } \{a,b,c\} = \{0,1,2\}\\
+				a & \text{, sonst}
+			\end{cases}
+	\end{align*}
+
+	\begin{align*}
+		\mathcal{P}(A) = \{&&\emptyset, &&w_1! &&\{0\}, && &&\{1\}, &&w_1! &&\{2\}, &&w_1! && \\
+		                   &&\{3\}, &&w_1! &&\{0, 1\}, && &&\{0, 2\}, && &&\{0, 3\}, && && \\
+		                   &&\{1, 2\}, &&w_1! &&\{1, 3\}, &&w_1! &&\{2, 3\}, &&w_1! &&\{0, 1, 2\}, &&w_3! && \\
+		                   &&\{0, 1, 3\}, &&w_2! &&\{0, 2, 3\}, && &&\{1, 2, 3\}, &&w_1! &&\{0, 1, 2, 3\} && &&\}
+	\end{align*}
+	Wobei $w_i!$ bedeutet, dass die Menge nicht unter $w_i$ abgeschlossen ist.
+
+	\item Ist 1. für beliebiges $E \subseteq \mathcal{P}(A)$ lösbar?
+	
+	Nein, z.B. für $E = \emptyset$ gibt es keine Algebra $\mathcal{A}=(A,(w_i)_{i\in I})$ ohne Unteralgebren, da $A$ immer eine Unteralgebra von sich selbst ist!
+
+	\item \textbf{gesucht: } Kriterium / Algorithmus um entscheiden zu können ob für gegebenes, endliches $A$ und $E \subseteq \mathcal{P}(A)$ eine Algebra $\mathcal{A} = (A,w_1,w_2,...)$ existiert mit $Sub(\mathcal{A}) = E$.
+
+\end{enumerate}
+
+	\begin{alignat*}{1}
+		& \texttt{Algorithmus (A ... Menge, E ... gewünschte Unteralgebren)}\\
+		(1) \hspace{0.5cm} &\texttt{for (} P \in \mathcal{P}(A) \setminus E \texttt{) \{}\\
+		(2) \hspace{0.5cm} &\hspace{1cm} C := \bigcap_{B \in E, P\subseteq B}B\texttt{;}\\
+		(3) \hspace{0.5cm} &\hspace{1cm} \texttt{if (}C\setminus P = \emptyset \texttt{) \{}\\
+		(4) \hspace{0.5cm} &\hspace{2cm} \texttt{raise Error("nicht lösbar");}\\
+		(5) \hspace{0.5cm} &\hspace{1cm} \texttt{\} else \{}\\
+		(6) \hspace{0.5cm} &\hspace{2cm} w_P : A^{|P|} \rightarrow A, (x_1, ..., x_{|P|})\mapsto \begin{cases}
+			y \in C \setminus P & \texttt{, falls } \{x_1, ..., x_{|P|}\} = P\\
+			x_1 & \texttt{, sonst}
+		\end{cases} \\
+		(7) \hspace{0.5cm} &\hspace{2cm} \texttt{füge } w_P \texttt{ zur Algebra hinzu;}\\
+		(8) \hspace{0.5cm} &\hspace{1cm} \texttt{\}}\\
+		(9) \hspace{0.5cm} &\texttt{\}}\\
+	\end{alignat*}
+
+	Jede Operation $w$ erreicht (für unsere Zwecke), dass wenn $x_1, ..., x_n$ in einer Unteralgbra $U$ liegen, dass dann auch $y = w(x_1, ..., x_n) \in U$ sein muss.
+	
+	Damit ein $P \in \mathcal{P}(A)\setminus E$ nicht in $Sub(\mathcal{A})$ liegt muss also ein $w_P$ garantieren, dass wenn $P \subseteq U \implies \exists y \notin P: y \in U$. Natürlich muss das $y$ so gewählt werden, dass $\forall B \in E: P\subset B \implies y \in B$, da sonst $B \notin Sub(\mathcal{A})$. $\implies y \in \left(\bigcap_{B \in E, P\subseteq B}B\right)$.
+	
+	Falls aber $\left(\bigcap_{B \in E, P\subseteq B}B\right) = \emptyset$ kann nach der Überlegung von oben keine Lösung existieren. Sonst garantiert die Operation wie in (6) beschrieben, dass $P \notin Sub(\mathcal{A})$ für alle $P \notin E$ (wegen der Schleife in (1)).
+	
+	Für $Q \in E$ hat keine der Funktionen $(w_P)_{P\in \mathcal{P}(A)\setminus E}$ einen Effekt, da immer entweder gilt
+	
+	\begin{itemize}
+		\item $P \subseteq Q$ und somit
+		
+		\begin{align*}
+			\forall q_1, ..., q_{|P|} \in Q: w_P(q_1, ..., q_{|P|}) = \begin{cases}
+				y & \text{, falls } \{q_1, ..., q_{|P|}\} = P\\
+				q_1 & \text{, sonst}
+			\end{cases}
+		\end{align*}
+	
+		Da $Q \in E$ und $P \subseteq Q$ gilt nach Konstruktion, dass $y \in Q$ und $q_1 \in Q$ sowieso.
+		
+		\item $P\setminus Q \neq \emptyset$ und somit $\exists p \in P\setminus Q$ damit kann nicht der Fall $\{q1, ..., q_{|P|}\} = P$ eintreten. Also gilt
+		
+		\begin{align*}
+			\forall q_1, ..., q_{|P|} \in Q: w_P(q_1, ..., q_{|P|}) = q_1 \in Q.
+		\end{align*}
+	\end{itemize}
+
+	In beiden Fällen gilt also, dass $Q$ bezüglich allen $(w_P)_{P\in \mathcal{P}(A)\setminus E}$ abgeschlossen ist.
 
 \end{document}
