@@ -1,0 +1,155 @@
+\documentclass[]{article}
+
+\usepackage{amsfonts} 
+\usepackage{amsmath}
+\usepackage[margin=2.5cm]{geometry}
+
+%opening
+\title{Algebra Übungsblatt 2}
+\author{Ida Hönigmann}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+\newpage
+\section{68}
+
+\texttt{*}, \texttt{+} ... 2-stellig
+\texttt{cos}, \texttt{sin} ... 1-stellig
+\texttt{i} ... 0-stellig
+\texttt{a}, \texttt{b}, \texttt{c} ... Variablen 
+
+\begin{verbatim}
+	
+(i)       (ii)       (iii)         (iv)
+    *         sin          +             +
+   / \         |          / \           / \
+ sin  c        +        sin  b         *  cos
+  |           / \        |            / \  |
+  +          a   b       a           sin i a
+ / \                                  |
+a   b                                 b
+\end{verbatim}
+
+
+\begin{tabular}{r|ccc}
+		  & Präfix               & Infix                    & Postfix              \\\hline
+	(i)   & \texttt{*sin+abc}    & \texttt{sin(a+b)*c}      & \texttt{ab+sinc*}    \\
+	(ii)  & \texttt{sin+ab}      & \texttt{sin(a+b)}        & \texttt{ab+sin}      \\
+	(iii) & \texttt{+sinab}      & \texttt{sin(a)+b}        & \texttt{asinb+}      \\
+	(iv)  & \texttt{+*sinbicosa} & \texttt{sin(b)*i+cos(a)} & \texttt{acosibsin*+} \\
+\end{tabular}
+
+
+\newpage
+
+\section{72}
+\textbf{Definition}
+
+\begin{align*}
+	C \text{ heißt Klon auf } A :\iff & (i) \forall n \in \mathbb{N}\setminus\{0\} \forall i \in \{1, ..., n\}: \pi_i^{(n)} \in C \\
+	& (ii) f_1,f_2,...,f_k:A^n\rightarrow A, g:A^k \rightarrow A \in C \\
+	& \implies g\circ_{n,k}(f_1,...,f_k) = g(f_1(a_1,...,a_n),...,f_k(a_1,...,a_n)) \in C
+\end{align*}
+
+\noindent
+\textbf{gesucht:} 3 Klone $C$ auf $A:=\{1, ..., k\}$ mit $A^A\subseteq C$, wobei $k\geq 3$.
+
+\begin{itemize}
+	\item 
+	
+\begin{align*}
+	C_a := \bigcup_{n\in\mathbb{N}\setminus\{0\}} \{f:A^n\rightarrow A \vert \exists i \in \{1, ..., n\}\exists \tilde{f}\in A^A : f(x_1, ..., x_n) = \tilde{f}(x_i)\}
+\end{align*}
+
+\begin{itemize}
+	\item Sei $\pi_i^{(n)}$ eine beliebige Projektion. $\pi_i^{(n)} \in C_a$, da für $\tilde{f} = id$ gilt $f(x_1, ..., x_n) = x_i$.
+	
+	\item Sei $f_1,...,f_k,g \in C_c$ (mit Stelligkeiten wie oben beschrieben) beliebig. Nennen wir $h:=g\circ_{n,k}(f_1,...,f_k)$.
+	
+	\begin{align*}
+		g(x_1, ..., x_k) &= \tilde{g}(x_i)\\
+		f_1(x_1, ..., x_n) &= \tilde{f}_1(x_j)\\
+		&\vdots\\
+		f_k(x_1, ..., x_n) &= \tilde{f}_k(x_l)\\
+		\implies h(x_1, ..., x_n) &= \tilde{g}(\tilde{f}_i(x_l)) \in C_a
+	\end{align*}
+
+	\item Für $n=1$ ist $f:A\rightarrow A$ mit $f=\tilde{f}$ beliebig in $C_a$.
+\end{itemize}
+	
+	\item 
+	
+\begin{align*}
+	C_b := \bigcup_{n\in\mathbb{N}\setminus\{0\}} \{f: A^n \rightarrow A\}
+\end{align*}
+
+\begin{itemize}
+	\item Alle Projektionen $\pi_i^{(n)}$ liegen in der Menge aller Funktionen von $A^n$ nach $A$.
+	
+	\item Alle beliebigen Verknüpfungen von Funktionen liegen in der Menge alller Funktionen von $A^n$ nach $A\text{ Widerspruch!}$.
+	
+	\item Alle $A^A$ liegen in der Menge aller Funktionen von $A^1$ nach $A$.
+\end{itemize}
+	
+	\item
+	
+\begin{align*}
+	C_c := C_a \cup \bigcup_{n\in\mathbb{N}\setminus\{0\}} \{f: A^n \rightarrow A \vert f \text{ ist nicht surjektiv}\}
+\end{align*}
+
+\begin{itemize}
+	\item Wir haben schon gezeigt, dass alle Projektionen $\pi_i^{(n)} \in C_a$. Gemeinsam mit $C_a \subseteq C_c$ ergibt das $\pi_i^{(n)} \in C_c$.
+	
+	\item Sei $f_1,...,f_k,g \in C_c$ (mit Stelligkeiten wie oben beschrieben) beliebig. Nennen wir $h:=g\circ_{n,k}(f_1,...,f_k)$.
+	
+	Falls $g$ eine nicht surjektive Funktion ist, ist klarerweise auch $h$ nicht surjektiv und somit $h \in C_c$.
+	
+	Sonst gilt $g \in C_a$ und somit $\exists \tilde{g}:A\rightarrow A \exists i\in \{1, ..., k\} \vert g(x_1,...,x_k) = \tilde{g}(x_i)$. $\implies h=\tilde{g}(f_i(x_1, ..., x_n))$. Falls auch $f_i \in C_a$ so haben wir bereits gezeigt, dass $h \in C_a$. Anderenfalls ist $h$ nicht surjektiv, da $f_i$ nicht surjektiv ist.
+	
+	\item Wir haben schon gezeigt, dass $A^A \subseteq C_a \subseteq C_c$.
+\end{itemize}
+	
+\end{itemize}
+
+Nun müssen wir zeigen, dass es sich um drei unterschiedliche Klone handelt.
+
+\begin{align*}
+	f:A^2 &\rightarrow A\\
+	(a, b) &\mapsto ((a+b)mod |A|) + 1
+\end{align*}
+
+$f$ liegt (klarerweise) in $C_b$. Angenommen $f$ liegt in $C_a \implies f(a,b)=\tilde{f}(a) \lor f(a,b)=\tilde{f}(b)$. o.B.d.A $f(a,b)=\tilde{f}(a)$.
+
+\begin{align*}
+	f(1, 1) = 3 &\implies \tilde{f}(1) = 3\\
+	f(1, 2) = 1 \text{ falls } |A| = 3 \text{ und } 4 \text{ falls } |A| > 3 &\implies \tilde{f}(1) \neq 3 \text{ Widerspruch!}
+\end{align*}
+
+Also $C_a \neq C_b$.
+
+$f$ ist surjektiv, da man mit $\{(1, l): l \in \{1, ..., k\}\}$ alle Elemente in $A$ erreichen kann. Also $f \notin C_c$ und somit $C_b \neq C_c$.
+
+
+\begin{align*}
+	g:A^2 &\rightarrow A\\
+	(a, b) &\mapsto 1 \text{ falls } a=b \text{ und } 2 \text{ sonst}
+\end{align*}
+
+Die Funktion $g$ ist offensichtlich nicht surjektiv ($3 \notin g(A)$) also $g \in C_c$.
+
+Angenommen $g$ liegt in $C_a \implies g(a,b)=\tilde{g}(a) \lor g(a,b)=\tilde{g}(b)$. o.B.d.A $g(a,b)=\tilde{g}(a)$.
+
+\begin{align*}
+	g(1, 1) = 1 &\implies \tilde{g}(1) = 1\\
+	g(1, 2) = 2 &\implies \tilde{g}(1) = 2 \text{ Widerspruch!}
+\end{align*}
+
+Also $C_a \neq C_b$.
+
+\end{document}
