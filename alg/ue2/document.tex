@@ -152,9 +152,97 @@ Angenommen $g$ liegt in $C_a \implies g(a,b)=\tilde{g}(a) \lor g(a,b)=\tilde{g}(
 \end{align*}
 
 Also $C_a \neq C_b$.
+\newpage
 
 \section{77}
-TODO
+$A$ ... Menge, $\mathcal{O}_A$ ... Menge aller Klone auf $A$
+
+\noindent
+\textbf{zu zeigen: } $(\mathcal{O}_A, \subseteq)$ bildet einen vollständigen Verband
+
+Sei $P \subseteq \mathcal{O}_A$ beliebig.
+
+Für $P = \emptyset$ ist
+
+\begin{align*}
+	inf(P) &= \bigcup_{n\in\mathbb{N}\setminus\{0\}}\{f:A^n\rightarrow A\} \\
+	sup(P) &= \bigcup_{n\in\mathbb{N}\setminus\{0\}}\{\pi_i^{(n)}: i\in \{1, ..., n\}\}.
+\end{align*}
+ 
+Was auch mit den unteren Definitionen übereinstimmt, wenn man die Vereinigung und den Schnitt über die leere Menge entsprechend definiert.
+ 
+Wir wollen zeigen $\exists C \in \mathcal{O}_A: C = inf(P)$ also
+
+\begin{align*}
+	\forall D \in P: C \subseteq D & \text{ und}\\
+	\forall \tilde{C} \in \mathcal{O}_A:(\forall D \in P: \tilde{C} \subseteq D) \implies \tilde{C} \subseteq C.
+\end{align*}
+
+\begin{align*}
+	C:= \bigcap_{D\in P}D
+\end{align*}
+
+\begin{itemize}
+	\item \textbf{zz: } $C$ ist ein Klon auf $A$
+	
+	Sei $\pi_i^{(n)}$ eine beliebige Projektion auf $A$. $\forall D \in P: \pi_i^{(n)} \in D$, da $D \in \mathcal{O}_A$. Das bedeutet aber, dass $\pi_i^{(n)} \in \bigcap_{D\in P}D = C$.
+	
+	Sei $f_1, ..., f_k : A^n \rightarrow A, g:A^k\rightarrow A$ aus $C$ beliebig. $\implies \forall D \in P: f_1, ..., f_k, g \in D$ und daher auch $\forall D \in P: h := g\circ_{n,k}(f_1, ..., f_k) \in D$. Das bedeutet aber, $h \in C$.
+	
+	Also ist $C \in \mathcal{O}_A$.
+	
+	\item \textbf{zz: } $\forall D \in P: C \subseteq D$
+	
+	gilt nach Definition von $C$.
+	
+	\item \textbf{zz: } $\forall \tilde{C} \in \mathcal{O}_A:(\forall D \in P: \tilde{C} \subseteq D) \implies \tilde{C} \subseteq C$
+	
+	Sei $\tilde{C} \in \mathcal{O}_A$ mit $\forall D \in P: \tilde{C} \subseteq D$ beliebig. Angenommen $C \subsetneq \tilde{C}$. Das bedeutet $\exists f \in \tilde{C}\setminus C$.
+	
+	Da $f \notin C$ gilt $\exists D \in P: f \notin D$ und somit $\neq (\tilde{C} \subseteq D)$ was ein Widerspruch ist. Also muss gelten $\tilde{C} \subseteq C$.
+\end{itemize}
+
+Insgesamt ist also $C = inf(P)$.
+
+Da $(\mathcal{O}_A, \subseteq)$ eine Halbordnung ist und jede Teilmenge ein Infimum besitzt gilt nach Aufgabe 52 von letzer Woche, dass auch jede Teilmenge ein Supremum besitzt.
+
+Alternativer Beweis des Supremums:
+
+Zu zeigen: $\exists C \in \mathcal{O}_A: C = sup(P)$ also
+
+\begin{align*}
+	\forall D \in P: D \subseteq C & \text{ und}\\
+	\forall \tilde{C} \in \mathcal{O}_A:(\forall D \in P: D \subseteq \tilde{C}) \implies C \subseteq \tilde{C}.
+\end{align*}
+
+\begin{align*}
+	C:= \left[\bigcup_{D\in P}D\right] & \text{ wobei } [M] \text{ den Abschluss unter allen } \circ_{n,k} \text{ bezeichnet}
+\end{align*}
+
+\begin{itemize}
+	\item \textbf{zz: } $C$ ist ein Klon auf $A$
+	
+	Sei $\pi_i^{(n)}$ eine beliebige Projektion auf $A$. $\forall D \in P: \pi_i^{(n)} \in D$, da $D \in \mathcal{O}_A$. Das bedeutet aber, dass $\pi_i^{(n)} \in \bigcup_{D\in P}D = C$.
+	
+	Die Abgeschlossenheit bezüglich aller $\circ_{n,k}$ gilt nach Definition.
+	
+	Also ist $C \in \mathcal{O}_A$.
+	
+	\item \textbf{zz: } $\forall D \in P: D \subseteq C$
+	
+	gilt nach Definition von $C$.
+	
+	\item \textbf{zz: } $\forall \tilde{C} \in \mathcal{O}_A:(\forall D \in P: D \subseteq \tilde{C}) \implies C \subseteq \tilde{C}$
+	
+	Sei $\tilde{C} \in \mathcal{O}_A$ mit $\forall D \in P: D \subseteq \tilde{C}$ beliebig. Angenommen $\tilde{C} \subsetneq C$. Das bedeutet $\exists f \in C \setminus \tilde{C}$.
+	
+	Da $f \in C$ gilt entweder $\exists D \in P: f \in D$ was aber ein Widerspruch zu $D \subseteq \tilde{C}$ ist, da $f \notin \tilde{C}$ oder
+	$f$ entsteht durch $\circ_{n,k}$ auf $\bigcup_{D\in P}D$. Da $\forall D \in P: D \subseteq \tilde{C} \implies \bigcup_{D\in P}D \subseteq \tilde{C}$ kann $\tilde{C}$ kein Klon sein, da $f \notin \tilde{C}$ und somit $\tilde{C}$ nicht unter allen $\circ_{n,k}$ abgeschlossen ist.
+\end{itemize}
+
+Insgesamt also $C = sup(P)$.
+
+
 \newpage
 
 \section{102}
