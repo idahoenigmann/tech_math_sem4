@@ -48,7 +48,7 @@ $$
 
 ## Estimating the probability
 
-We generate 10000 instances of this problem and check what percentage satisfies the inequality. This gives us an estimate of the probabilty that $ax^2+bc+c=0$ has real roots.
+We generate 10000 instances of this problem and check what percentage satisfies the inequality. This gives us an estimate of the probability that $ax^2+bc+c=0$ has real roots.
 
 ```{r estimation}
 n=10000
